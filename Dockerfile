@@ -4,12 +4,6 @@ ARG CYPRESS_VERSION=4.12.1
 # and Cypress binary cached in /root/.cache/Cypress folder
 FROM cypress/included:${CYPRESS_VERSION}
 
-# "root"
-RUN whoami
-# uid=0(root) gid=0(root) groups=0(root)
-# meaning root
-RUN id
-
 # give every user read access to the "/root" folder where the binary is cached
 # we really only need to worry about the top folder, fortunately
 RUN ls -la /root
@@ -25,4 +19,3 @@ USER node
 RUN id
 # user "node" should be able to access the Cypress test runner now
 RUN ls -la /root/.cache/Cypress/*/Cypress
-RUN cat /root/.cache/Cypress/*/Cypress/binary_state.json
