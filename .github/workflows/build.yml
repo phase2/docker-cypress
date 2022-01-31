@@ -11,6 +11,7 @@ defaults:
 
 env:
   IMAGE_PATH: ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}-image
+  CYPRESS_VERSION: 4.12.1
 
 jobs:
 
@@ -40,5 +41,7 @@ jobs:
         with:
           push: true
           context: .
+          build-args:
+            CYPRESS_VERSION: ${{ env.CYPRESS_VERSION }}
           tags: |
-            ${{ env.IMAGE_PATH }}
+            ${{ env.IMAGE_PATH }}:${{ env.CYPRESS_VERSION }}
