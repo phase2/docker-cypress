@@ -41,7 +41,7 @@ jobs:
         with:
           push: true
           context: .
-          build-args:
-            CYPRESS_VERSION: ${{ env.CYPRESS_VERSION }}
+          build-args: |
+            CYPRESS_VERSION=${{ env.CYPRESS_VERSION }}
           tags: |
             ${{ env.IMAGE_PATH }}:${{ env.CYPRESS_VERSION }}
