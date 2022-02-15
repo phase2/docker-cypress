@@ -7,7 +7,12 @@ FROM cypress/included:${CYPRESS_VERSION}
 # give every user read access to the "/root" folder where the binary is cached
 # we really only need to worry about the top folder, fortunately
 RUN ls -la /root
-RUN chmod 755 /root
+# Allow docker group to WRITE so additional cypress plugins can be installed by projects.
+RUN chgrp -R 1000 /root/.npm
+RUN chgrp -R 1000 /root/.cache
+RUN chmod 775 /root
+RUN chmod 775 /root/.npm/node_modules
+RUN chmod 775 /root/.cache
 # point Cypress at the /root/cache no matter what user account is used
 # see https://on.cypress.io/caching
 ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
