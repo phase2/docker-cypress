@@ -11,8 +11,9 @@ RUN ls -la /root
 RUN chgrp -R 1000 /root/.npm
 RUN chgrp -R 1000 /root/.cache
 RUN chmod 775 /root
-RUN chmod 775 /root/.npm/node_modules
+RUN chmod 775 /root/.npm
 RUN chmod 775 /root/.cache
+RUN chmod 775 /root/.cache/Cypress
 # point Cypress at the /root/cache no matter what user account is used
 # see https://on.cypress.io/caching
 ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
