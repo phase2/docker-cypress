@@ -11,7 +11,6 @@ defaults:
 
 env:
   IMAGE_PATH: ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}-image
-  CYPRESS_VERSION: 4.12.1
 
 jobs:
 
@@ -22,6 +21,9 @@ jobs:
     permissions:
       packages: write
       contents: read
+    strategy:
+      matrix:
+        cypress: [4.12.1, 5.6.0]
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -42,6 +44,6 @@ jobs:
           push: true
           context: .
           build-args: |
-            CYPRESS_VERSION=${{ env.CYPRESS_VERSION }}
+            CYPRESS_VERSION=${{ matrix.cypress }}
           tags: |
-            ${{ env.IMAGE_PATH }}:${{ env.CYPRESS_VERSION }}
+            ${{ env.IMAGE_PATH }}:${{ matrix.cypress }}
